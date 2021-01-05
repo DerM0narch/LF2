@@ -15,8 +15,10 @@ class SailServiceProvider extends ServiceProvider implements DeferrableProvider
      */
     public function boot()
     {
-        $this->registerCommands();
-        $this->configurePublishing();
+        if ($this->app->runningInConsole()) {
+            $this->registerCommands();
+            $this->configurePublishing();
+        }
     }
 
     /**
@@ -26,17 +28,13 @@ class SailServiceProvider extends ServiceProvider implements DeferrableProvider
      */
     protected function registerCommands()
     {
-        if (! $this->app->runningInConsole()) {
-            return;
-        }
-
         Artisan::command('sail:install', function () {
             copy(__DIR__.'/../stubs/docker-compose.yml', base_path('docker-compose.yml'));
 
             $environment = file_get_contents(base_path('.env'));
 
             $environment = str_replace('DB_HOST=127.0.0.1', 'DB_HOST=mysql', $environment);
-            $environment = str_replace('MEMCACHED_HOST=127.0.0.1', 'MEMCACHED_HOST=redis', $environment);
+            $environment = str_replace('MEMCACHED_HOST=127.0.0.1', 'MEMCACHED_HOST=memcached', $environment);
             $environment = str_replace('REDIS_HOST=127.0.0.1', 'REDIS_HOST=redis', $environment);
 
             file_put_contents(base_path('.env'), $environment);
@@ -60,10 +58,6 @@ class SailServiceProvider extends ServiceProvider implements DeferrableProvider
      */
     protected function configurePublishing()
     {
-        if (! $this->app->runningInConsole()) {
-            return;
-        }
-
         $this->publishes([
             __DIR__.'/../runtimes' => base_path('docker'),
         ], 'sail');
