@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use App\Models\Scooter;
+use App\Models\Ausleihe;
 
-class ScooterController extends Controller
+class AusleiheController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -26,7 +26,7 @@ class ScooterController extends Controller
      */
     public function index()
     {
-        return view('scooter.index')->with('scooters', Scooter::all());
+        return view('ausleihe.index')->with('ausleihes', Ausleihe::all());
     }
 
     /**
@@ -36,7 +36,7 @@ class ScooterController extends Controller
      */
     public function create()
     {
-        return view('scooter.create');
+        return view('ausleihe.create');
     }
 
     /**
@@ -48,24 +48,23 @@ class ScooterController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'kennzeichen' => 'required',
-            'zulassung' => 'required',
-            'model' => 'required',
+            'leihende' => 'required',
+            'leihstart' => 'required',
+            'gesamtpreis' => 'required',
         ]);
 
 
-        $scooter = new Scooter;
-        $scooter->kennzeichen = $request->input('title');
-        $scooter->zulassung = $request->input('zulassung');
-        $scooter->modell = $request->input('model');
+        $ausleihe = new Ausleihe;
+        $ausleihe->leihende = $request->input('leihende');
+        $ausleihe->leihstart = $request->input('leihstart');
+        $ausleihe->gesamtpreis = $request->input('gesamtpreis');
         //TODO Foreign Key?
 
-
-        $scooter->save();
+        $ausleihe->save();
 
         // auth()->user()->id for user id;
 
-        return redirect('/scooters');
+        return redirect('/ausleihes');
     }
 
     /**
@@ -76,7 +75,7 @@ class ScooterController extends Controller
      */
     public function show($id)
     {
-        return view('scooter.show')->with('scooter', Scooter::find($id));
+        return view('ausleihe.show')->with('ausleihe', Ausleihe::find($id));
     }
 
     /**
@@ -87,14 +86,14 @@ class ScooterController extends Controller
      */
     public function edit($id)
     {
-        $scooter = Scooter::find($id);
+        $ausleihe = Ausleihe::find($id);
 
-        //Check if scooter exists before deleting
-        if (!isset($scooter)){
-            return redirect('/scooters')->with('error', 'Not Found');
+        //Check if ausleihe exists before deleting
+        if (!isset($ausleihe)){
+            return redirect('/ausleihes')->with('error', 'Not Found');
         }
 
-        return view('scooter.edit')->with('scooter', $scooter);
+        return view('ausleihe.edit')->with('ausleihe', $ausleihe);
     }
 
     /**
@@ -107,24 +106,24 @@ class ScooterController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'kennzeichen' => 'required',
-            'zulassung' => 'required',
-            'model' => 'required',
+            'leihende' => 'required',
+            'leihstart' => 'required',
+            'gesamtpreis' => 'required',
         ]);
 
-        $scooter = Scooter::find($id);
+        $ausleihe = Ausleihe::find($id);
 
-        if(!isset($scooter)) {
-            $scooter = new Scooter;
+        if(!isset($ausleihe)) {
+            $ausleihe = new Ausleihe;
         }
 
-        $scooter->kennzeichen = $request->input('kennzeichen');
-        $scooter->zulassung = $request->input('zulassung');
-        $scooter->modell = $request->input('model');
+        $ausleihe->leihende = $request->input('leihende');
+        $ausleihe->leihstart = $request->input('leihstart');
+        $ausleihe->gesamtpreis = $request->input('gesamtpreis');
 
-        $scooter->save();
+        $ausleihe->save();
 
-        return redirect('/scooters');
+        return redirect('/ausleihes');
     }
 
     /**
@@ -135,14 +134,14 @@ class ScooterController extends Controller
      */
     public function destroy($id)
     {
-        $scooter = Scooter::find($id);
+        $ausleihe = Ausleihe::find($id);
 
         //Check if post exists before deleting
-        if (!isset($scooter)){
-            return redirect('/scooters')->with('error', 'Not Found');
+        if (!isset($ausleihe)){
+            return redirect('/ausleihes')->with('error', 'Not Found');
         }
 
-        $scooter->delete();
-        return redirect('/scooters');
+        $ausleihe->delete();
+        return redirect('/ausleihes');
     }
 }

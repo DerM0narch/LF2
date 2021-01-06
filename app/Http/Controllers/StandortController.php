@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use App\Models\Scooter;
+use App\Models\Standort;
 
-class ScooterController extends Controller
+class StandortController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -26,7 +26,7 @@ class ScooterController extends Controller
      */
     public function index()
     {
-        return view('scooter.index')->with('scooters', Scooter::all());
+        return view('standort.index')->with('standorts', Standort::all());
     }
 
     /**
@@ -36,7 +36,7 @@ class ScooterController extends Controller
      */
     public function create()
     {
-        return view('scooter.create');
+        return view('standort.create');
     }
 
     /**
@@ -48,24 +48,22 @@ class ScooterController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'kennzeichen' => 'required',
-            'zulassung' => 'required',
-            'model' => 'required',
+            'ort' => 'required',
+            'strasse' => 'required',
+            'plz' => 'required',
         ]);
 
 
-        $scooter = new Scooter;
-        $scooter->kennzeichen = $request->input('title');
-        $scooter->zulassung = $request->input('zulassung');
-        $scooter->modell = $request->input('model');
-        //TODO Foreign Key?
+        $standort = new Standort;
+        $standort->ort = $request->input('ort');
+        $standort->strasse = $request->input('strasse');
+        $standort->plz = $request->input('plz');
 
-
-        $scooter->save();
+        $standort->save();
 
         // auth()->user()->id for user id;
 
-        return redirect('/scooters');
+        return redirect('/standorts');
     }
 
     /**
@@ -76,7 +74,7 @@ class ScooterController extends Controller
      */
     public function show($id)
     {
-        return view('scooter.show')->with('scooter', Scooter::find($id));
+        return view('standort.show')->with('standort', Standort::find($id));
     }
 
     /**
@@ -87,14 +85,14 @@ class ScooterController extends Controller
      */
     public function edit($id)
     {
-        $scooter = Scooter::find($id);
+        $standort = Standort::find($id);
 
-        //Check if scooter exists before deleting
-        if (!isset($scooter)){
-            return redirect('/scooters')->with('error', 'Not Found');
+        //Check if standort exists before deleting
+        if (!isset($standort)){
+            return redirect('/standorts')->with('error', 'Not Found');
         }
 
-        return view('scooter.edit')->with('scooter', $scooter);
+        return view('standort.edit')->with('standort', $standort);
     }
 
     /**
@@ -107,24 +105,24 @@ class ScooterController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'kennzeichen' => 'required',
-            'zulassung' => 'required',
-            'model' => 'required',
+            'ort' => 'required',
+            'strasse' => 'required',
+            'plz' => 'required',
         ]);
 
-        $scooter = Scooter::find($id);
+        $standort = Standort::find($id);
 
-        if(!isset($scooter)) {
-            $scooter = new Scooter;
+        if(!isset($standort)) {
+            $standort = new Standort;
         }
 
-        $scooter->kennzeichen = $request->input('kennzeichen');
-        $scooter->zulassung = $request->input('zulassung');
-        $scooter->modell = $request->input('model');
+        $standort->ort = $request->input('ort');
+        $standort->strasse = $request->input('strasse');
+        $standort->plz = $request->input('plz');
 
-        $scooter->save();
+        $standort->save();
 
-        return redirect('/scooters');
+        return redirect('/standorts');
     }
 
     /**
@@ -135,14 +133,14 @@ class ScooterController extends Controller
      */
     public function destroy($id)
     {
-        $scooter = Scooter::find($id);
+        $standort = Standort::find($id);
 
         //Check if post exists before deleting
-        if (!isset($scooter)){
-            return redirect('/scooters')->with('error', 'Not Found');
+        if (!isset($standort)){
+            return redirect('/standorts')->with('error', 'Not Found');
         }
 
-        $scooter->delete();
-        return redirect('/scooters');
+        $standort->delete();
+        return redirect('/standorts');
     }
 }
