@@ -17,9 +17,10 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/app', function () {
-    return view('app');
-})->name('app');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/home', function () {
+    return view('index');
+})->name('home');
 
 
 Route::group(['prefix' => 'admin'], function () {
