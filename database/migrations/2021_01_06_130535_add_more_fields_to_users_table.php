@@ -14,9 +14,8 @@ class AddMoreFieldsToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table-string('name')->unique();
-            $table-string('fname');
-            $table-string('lname');
+            $table-string('firstname');
+            $table-string('lastname');
             $table-string('adress');
             $table-string('adress2');
             $table-string('zipcode');
