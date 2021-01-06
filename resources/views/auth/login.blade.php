@@ -43,7 +43,7 @@
                </div> 
                 @if (Route::has('register'))
                     <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('register') }}">
-                    <span style="color:blue">{{ __('Register') }}
+                         {{ __('Register') }}
                     </a>
                 @endif
                 </div>
