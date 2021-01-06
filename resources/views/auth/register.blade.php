@@ -10,8 +10,29 @@
             @csrf
 
             <div>
-                <x-jet-label for="name" value="{{ __('Name') }}" />
+                <x-jet-label for="fname" value="{{ __('First Name') }}" />
+                <x-jet-input id="fname" class="block mt-1 w-full" type="text" name="fname" :value="old('fname')" required autofocus autocomplete="fname" />
+            </div>
+
+            <div>
+                <x-jet-label for="name" value="{{ __('Last Name') }}" />
                 <x-jet-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+            </div>
+           
+            <div>
+                <x-jet-label for="adress" value="{{ __('Adress') }}" />
+                <x-jet-input id="adress" class="block mt-1 w-full" type="text" name="adress" :value="old('adress')" required autofocus autocomplete="adress" />
+                <x-jet-input id="adress2" class="block mt-1 w-full" type="text" name="adress" :value="old('adress')" required autofocus autocomplete="adress" />
+            </div>
+
+            <div>
+                <x-jet-label for="zipcode" value="{{ __('Zipcode') }}" />
+                <x-jet-input id="zipcode" class="block mt-1 w-full" type="text" name="zipcode" :value="old('zipcode')" required autofocus autocomplete="zipcode" />
+            </div>
+            
+            <div>
+                <x-jet-label for="city" value="{{ __('City') }}" />
+                <x-jet-input id="city" class="block mt-1 w-full" type="text" name="city" :value="old('city')" required autofocus autocomplete="city" />
             </div>
 
             <div class="mt-4">
