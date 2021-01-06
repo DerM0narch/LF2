@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use App\Models\Scooter;
+use App\Models\Tarif;
 
-class ScooterController extends Controller
+class TarifController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -26,7 +26,7 @@ class ScooterController extends Controller
      */
     public function index()
     {
-        return view('scooter.index')->with('scooters', Scooter::all());
+        return view('tarif.index')->with('tarifs', Tarif::all());
     }
 
     /**
@@ -36,7 +36,7 @@ class ScooterController extends Controller
      */
     public function create()
     {
-        return view('scooter.create');
+        return view('tarif.create');
     }
 
     /**
@@ -48,24 +48,22 @@ class ScooterController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'kennzeichen' => 'required',
-            'zulassung' => 'required',
-            'model' => 'required',
+            'preis' => 'required',
+            'tarifart' => 'required',
+            'leistungen' => 'required',
         ]);
 
 
-        $scooter = new Scooter;
-        $scooter->kennzeichen = $request->input('title');
-        $scooter->zulassung = $request->input('zulassung');
-        $scooter->modell = $request->input('model');
-        //TODO Foreign Key?
+        $tarif = new Tarif;
+        $tarif->preis = $request->input('preis');
+        $tarif->tarifart = $request->input('tarifart');
+        $tarif->leistungen = $request->input('leistungen');
 
-
-        $scooter->save();
+        $tarif->save();
 
         // auth()->user()->id for user id;
 
-        return redirect('/scooters');
+        return redirect('/tarifs');
     }
 
     /**
@@ -76,7 +74,7 @@ class ScooterController extends Controller
      */
     public function show($id)
     {
-        return view('scooter.show')->with('scooter', Scooter::find($id));
+        return view('tarif.show')->with('tarif', Tarif::find($id));
     }
 
     /**
@@ -87,14 +85,14 @@ class ScooterController extends Controller
      */
     public function edit($id)
     {
-        $scooter = Scooter::find($id);
+        $tarif = Tarif::find($id);
 
-        //Check if scooter exists before deleting
-        if (!isset($scooter)){
-            return redirect('/scooters')->with('error', 'Not Found');
+        //Check if tarif exists before deleting
+        if (!isset($tarif)){
+            return redirect('/tarifs')->with('error', 'Not Found');
         }
 
-        return view('scooter.edit')->with('scooter', $scooter);
+        return view('tarif.edit')->with('tarif', $tarif);
     }
 
     /**
@@ -107,24 +105,24 @@ class ScooterController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'kennzeichen' => 'required',
-            'zulassung' => 'required',
-            'model' => 'required',
+            'preis' => 'required',
+            'tarifart' => 'required',
+            'leistungen' => 'required',
         ]);
 
-        $scooter = Scooter::find($id);
+        $tarif = Tarif::find($id);
 
-        if(!isset($scooter)) {
-            $scooter = new Scooter;
+        if(!isset($tarif)) {
+            $tarif = new Tarif;
         }
 
-        $scooter->kennzeichen = $request->input('kennzeichen');
-        $scooter->zulassung = $request->input('zulassung');
-        $scooter->modell = $request->input('model');
+        $tarif->preis = $request->input('preis');
+        $tarif->tarifart = $request->input('tarifart');
+        $tarif->leistungen = $request->input('leistungen');
 
-        $scooter->save();
+        $tarif->save();
 
-        return redirect('/scooters');
+        return redirect('/tarifs');
     }
 
     /**
@@ -135,14 +133,14 @@ class ScooterController extends Controller
      */
     public function destroy($id)
     {
-        $scooter = Scooter::find($id);
+        $tarif = Tarif::find($id);
 
         //Check if post exists before deleting
-        if (!isset($scooter)){
-            return redirect('/scooters')->with('error', 'Not Found');
+        if (!isset($tarif)){
+            return redirect('/tarifs')->with('error', 'Not Found');
         }
 
-        $scooter->delete();
-        return redirect('/scooters');
+        $tarif->delete();
+        return redirect('/tarifs');
     }
 }

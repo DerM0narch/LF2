@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use App\Models\Scooter;
+use App\Models\Hersteller;
 
-class ScooterController extends Controller
+class HerstellerController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -26,7 +26,7 @@ class ScooterController extends Controller
      */
     public function index()
     {
-        return view('scooter.index')->with('scooters', Scooter::all());
+        return view('hersteller.index')->with('herstellers', Hersteller::all());
     }
 
     /**
@@ -36,7 +36,7 @@ class ScooterController extends Controller
      */
     public function create()
     {
-        return view('scooter.create');
+        return view('hersteller.create');
     }
 
     /**
@@ -48,24 +48,21 @@ class ScooterController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'kennzeichen' => 'required',
-            'zulassung' => 'required',
-            'model' => 'required',
+            'name' => 'required',
+            'kontakt' => 'required',
         ]);
 
 
-        $scooter = new Scooter;
-        $scooter->kennzeichen = $request->input('title');
-        $scooter->zulassung = $request->input('zulassung');
-        $scooter->modell = $request->input('model');
-        //TODO Foreign Key?
+        $hersteller = new Hersteller;
+        $hersteller->name = $request->input('name');
+        $hersteller->kontakt = $request->input('kontakt');
 
 
-        $scooter->save();
+        $hersteller->save();
 
         // auth()->user()->id for user id;
 
-        return redirect('/scooters');
+        return redirect('/herstellers');
     }
 
     /**
@@ -76,7 +73,7 @@ class ScooterController extends Controller
      */
     public function show($id)
     {
-        return view('scooter.show')->with('scooter', Scooter::find($id));
+        return view('hersteller.show')->with('hersteller', Hersteller::find($id));
     }
 
     /**
@@ -87,14 +84,14 @@ class ScooterController extends Controller
      */
     public function edit($id)
     {
-        $scooter = Scooter::find($id);
+        $hersteller = Hersteller::find($id);
 
-        //Check if scooter exists before deleting
-        if (!isset($scooter)){
-            return redirect('/scooters')->with('error', 'Not Found');
+        //Check if hersteller exists before deleting
+        if (!isset($hersteller)){
+            return redirect('/herstellers')->with('error', 'Not Found');
         }
 
-        return view('scooter.edit')->with('scooter', $scooter);
+        return view('hersteller.edit')->with('hersteller', $hersteller);
     }
 
     /**
@@ -107,24 +104,22 @@ class ScooterController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'kennzeichen' => 'required',
-            'zulassung' => 'required',
-            'model' => 'required',
+            'name' => 'required',
+            'kontakt' => 'required',
         ]);
 
-        $scooter = Scooter::find($id);
+        $hersteller = Hersteller::find($id);
 
-        if(!isset($scooter)) {
-            $scooter = new Scooter;
+        if(!isset($hersteller)) {
+            $hersteller = new Hersteller;
         }
 
-        $scooter->kennzeichen = $request->input('kennzeichen');
-        $scooter->zulassung = $request->input('zulassung');
-        $scooter->modell = $request->input('model');
+        $hersteller->name = $request->input('name');
+        $hersteller->kontakt = $request->input('kontakt');
 
-        $scooter->save();
+        $hersteller->save();
 
-        return redirect('/scooters');
+        return redirect('/herstellers');
     }
 
     /**
@@ -135,14 +130,14 @@ class ScooterController extends Controller
      */
     public function destroy($id)
     {
-        $scooter = Scooter::find($id);
+        $hersteller = Hersteller::find($id);
 
         //Check if post exists before deleting
-        if (!isset($scooter)){
-            return redirect('/scooters')->with('error', 'Not Found');
+        if (!isset($hersteller)){
+            return redirect('/herstellers')->with('error', 'Not Found');
         }
 
-        $scooter->delete();
-        return redirect('/scooters');
+        $hersteller->delete();
+        return redirect('/herstellers');
     }
 }
