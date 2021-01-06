@@ -40,9 +40,39 @@
 
                         <div class="panel-body">
                             <div class="form-group">
-                                <label for="name">{{ __('voyager::generic.name') }}</label>
-                                <input type="text" class="form-control" id="name" name="name" placeholder="{{ __('voyager::generic.name') }}"
-                                       value="{{ old('name', $dataTypeContent->name ?? '') }}">
+                                <label for="firstname">{{ __('First Name') }}</label>
+                                <input type="text" class="form-control" id="firstname" name="firstname" placeholder="{{ __('First Name') }}"
+                                       value="{{ old('firstname', $dataTypeContent->firstname ?? '') }}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="lastname">{{ __('Last Name') }}</label>
+                                <input type="text" class="form-control" id="lastname" name="lastname" placeholder="{{ __('Last Name') }}"
+                                       value="{{ old('lastname', $dataTypeContent->lastname ?? '') }}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="adress">{{ __('Adress') }}</label>
+                                <input type="text" class="form-control" id="adress" name="adress" placeholder="{{ __('Adress') }}"
+                                       value="{{ old('adress', $dataTypeContent->adress ?? '') }}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="adress2">{{ __('Adress2') }}</label>
+                                <input type="text" class="form-control" id="adress2" name="adress2" placeholder="{{ __('Adress2') }}"
+                                       value="{{ old('adress2', $dataTypeContent->adress2 ?? '') }}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="zipcode">{{ __('Zipcode') }}</label>
+                                <input type="text" class="form-control" id="zipcode" name="zipcode" placeholder="{{ __('Zipcode') }}"
+                                       value="{{ old('zipcode', $dataTypeContent->zipcode ?? '') }}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="city">{{ __('City') }}</label>
+                                <input type="text" class="form-control" id="city" name="city" placeholder="{{ __('City') }}"
+                                       value="{{ old('city', $dataTypeContent->city ?? '') }}">
                             </div>
 
                             <div class="form-group">
