@@ -18,6 +18,8 @@ class CreateAusleihesTable extends Migration
             $table->date('leihende');
             $table->date('leihstart');
             $table->bigInteger('gesamtpreis')->nullable();
+            $table->foreignId('scooter_id')->constrained('scooters');
+            $table->foreignId('tarif_id')->constrained('tarifs');
             $table->timestamps();
         });
     }

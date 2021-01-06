@@ -18,6 +18,8 @@ class CreateScootersTable extends Migration
             $table->string('zulassung');
             $table->string('kennzeichen');
             $table->string('model');
+            $table->foreignId('standort_id')->constrained('standorts');
+            $table->foreignId('hersteller_id')->constrained('herstellers');
             $table->timestamps();
         });
     }
