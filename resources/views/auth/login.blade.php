@@ -39,12 +39,14 @@
                     </a>
                 @endif
                 <br>
-                
+
+               </div> 
                 @if (Route::has('register'))
                     <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('register') }}">
                     <span style="color:blue">{{ __('Register') }}
                     </a>
                 @endif
+                </div>
 
                 <x-jet-button class="ml-4">
                     {{ __('Login') }}
